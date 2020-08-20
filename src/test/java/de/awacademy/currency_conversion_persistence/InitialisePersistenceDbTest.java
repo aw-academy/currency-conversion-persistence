@@ -21,6 +21,7 @@ import org.junit.Test;
  */
 public class InitialisePersistenceDbTest {
 
+	private static final int dbPort = 3306;
 	private static final String dbUser = "root";
 	private static final String dbPassword = "root";
 	private static final String dbName = "currency_conversion_db";
@@ -37,7 +38,7 @@ public class InitialisePersistenceDbTest {
 	@BeforeClass
 	public static void setUp() throws SQLException {
 		Connection connection = DriverManager
-				.getConnection("jdbc:mysql://localhost:3306/?user=" + dbUser + "&password=" + dbPassword);
+				.getConnection("jdbc:mysql://localhost:" + dbPort + "/?user=" + dbUser + "&password=" + dbPassword);
 		Statement statement = connection.createStatement();
 		statement.executeUpdate("CREATE DATABASE IF NOT EXISTS " + dbName);
 		statement.execute("USE " + dbName);
