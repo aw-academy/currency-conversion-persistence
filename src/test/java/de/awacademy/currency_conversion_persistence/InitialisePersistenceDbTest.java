@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -37,8 +38,11 @@ public class InitialisePersistenceDbTest {
 	public static void setUp() throws SQLException {
 		Connection connection = DriverManager
 				.getConnection("jdbc:mysql://localhost:3306/?user=" + dbUser + "&password=" + dbPassword);
-		Statement stmt = connection.createStatement();
-		stmt.executeUpdate("CREATE DATABASE IF NOT EXISTS " + dbName);
+		Statement statement = connection.createStatement();
+		statement.executeUpdate("CREATE DATABASE IF NOT EXISTS " + dbName);
+		statement.execute("USE " + dbName);
+		statement.executeUpdate("DELETE FROM " + Money.class.getSimpleName());
+		statement.executeUpdate("DELETE FROM " + Wallet.class.getSimpleName());
 	}
 	
 
